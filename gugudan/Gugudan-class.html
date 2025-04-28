@@ -44,6 +44,9 @@
 
                 render() {
                     return (
+                        // React.Fragment를 사용하면 쓸데없는 <div>태그를 주지 않아도 된다. (빈 태그 효과)
+                        // <div> 태그를 쓰게 되면 나중에 css 할때 불편할 수 있다.
+                        // 보통은 <></>를 사용하지만 현재 코드에서 babel이 빈 태그를 지원해주지 않아서 React.Fragment 사용함. (webpack으로 구현)
                         <React.Fragment>
                             <div>{this.state.first} 곱하기 {this.state.second}는?</div>
                             <form onSubmit={this.onSubmit}>
