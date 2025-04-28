@@ -8,18 +8,24 @@
         <div id="root"></div>
         <script type="text/babel">
             class Gugudan extends React.Component {
+                // constructor(props) {
+                //     super(props);
+                //     this.state = {
                 state = {
                     first: Math.ceil(Math.random() * 9),
                     second: Math.ceil(Math.random() * 9),
                     value: '',
                     result: '',
                 };
-            
+                // }
+
+                // 직접 만드는 함수는 function (e) 함수 사용하지 말고 화살표 함수를 사용해야함
+                // 왜? 화살표 함수를 사용하지 않으면 this 가 달라지게 됨.
                 onSubmit = (e) => {
                     e.preventDefault();
                     if (parseInt(this.state.value) === this.state.first * this.state.second) {
                         this.setState({
-                            result: this.state.value + ' 정답!',
+                            result: '정답! ' + this.state.value,
                             first: Math.ceil(Math.random() * 9),
                             second: Math.ceil(Math.random() * 9),
                             value: '',
@@ -34,7 +40,7 @@
 
                 onChange = (e) => {
                     this.setState({ value: e.target.value });
-                };
+                 };
 
                 render() {
                     return (
