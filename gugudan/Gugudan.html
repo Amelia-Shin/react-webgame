@@ -8,6 +8,9 @@
         <div id="root"></div>
         <script type="text/babel">
             const Gugudan = () => {
+                //state 가 바뀔때마다 아래 통째로 재실행 된다.
+                //hooks 쓸때는 state를 다 쪼개서 사용 (만약, 객체로 한번에 묶어서 사용하면 setState할 때 귀찮아짐)
+                //-> state를 부분 변경할때를 생각해보면 된다. 
                 const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
                 const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9));
                 const [value, setValue] = React.useState('');
@@ -35,7 +38,7 @@
                 return (
                     <React.Fragment>
                         <div>{first} 곱하기 {second} 는?</div>
-                        <form>
+                        <form onSubmit={onSubmitForm}>
                             <input ref={inputRef} onChange={onChangeInput} value={value}/>
                             <button>입력!</button>
                         </form>
