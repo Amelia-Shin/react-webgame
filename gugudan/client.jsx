@@ -1,6 +1,6 @@
 const React = require('react');
-const ReactDOM = require('react-dom');
+import { createRoot } from 'react-dom/client'; // React 18 부터 createRoot 사용
 
-const gugudan = require('./Gugudan');
+const Gugudan = require('./Gugudan');
 
-ReactDOM.render(<Gugudan />, document.querySelector('#root'));
+createRoot(document.querySelector('#root')).render(<Gugudan />); // React 18 부터 createRoot 사용
