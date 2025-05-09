@@ -12,6 +12,18 @@ module.exports  = {
     entry: {
         app: ['./client'], // client.jsx 파일을 읽어옴
     }, // 입력
+
+    module: { // 모듈 설정
+        rules: [    
+            { // babel-loader 설정
+                test: /\.jsx?/, // 정규표현식, js, jsx 파일을 찾음  
+                loader: 'babel-loader', // babel-loader를 사용
+                options: { 
+                    presets: [ '@babel/preset-env', '@babel/preset-react'],
+                }
+        }],
+    }, 
+
     output: {  
         path: path.join(__dirname, 'dist'), // __dirname : 현재 파일의 위치
         filename: 'app.js'
