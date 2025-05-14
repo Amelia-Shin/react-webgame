@@ -9,13 +9,18 @@ const WordRelay = () => {
     
     const onSubmitForm = (e) => {
         e.preventDefault();
-        if (word[word.length - 1] === value[0]) {
-            setWord(value);
+        // console.log(e.target.children.word);
+        // if (word[word.length - 1] === value[0]) {
+        if (word[word.length - 1] ===  e.target.children.word.value[0]) {
+            // setWord(value);
+            setWord(e.target.children.word.value);
             setResult('딩동댕!');
-            setValue('');
+            // setValue('');
+            e.target.children.word.value = '';
         } else {
             setResult('땡!');
-            setValue('');
+            // setValue('');
+            e.target.children.word.value = '';
         }
         inputRef.current.focus();
     }
@@ -29,7 +34,17 @@ const WordRelay = () => {
             <h1>{word}</h1>
             <form onSubmit={onSubmitForm}>
                 <label id="label" htmlFor="wordInput">글자를 입력하세요.</label>
-                <input id="wordInput" className="wordInput" ref={inputRef} value={value} onChange={onChangeInput} />
+                {
+                /* 
+                Controlled Input
+                    <input ref={inputRef} value={value} onChange={(e)=>setValue(e.currentTarget.value)} />
+                
+                Uncontrolled Input : onSubmitForm 안에서만 쓰이는 거면 Uncontrolled Input을 사용해도 됨. 
+                    <input ref={inputRef} />
+                */
+                }
+                <input id="word" ref={inputRef} />
+                {/* <input id="wordInput" className="wordInput" ref={inputRef} value={value} onChange={onChangeInput} /> */}
                 <button>입력!</button>
             </form>
             <div>{result}</div>
