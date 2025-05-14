@@ -1,6 +1,6 @@
 const React = require('react');
 const Component = React.Component;
-const Try = require('./Try');
+const Try = require('./TryClass');
 
 function getNumbers() { // 숫자 4개를 겹치지 않고 랜덤하게 뽑는 함수
     const candidate = [1,2,3,4,5,6,7,8,9];
@@ -25,11 +25,12 @@ class NumberBaseball extends Component {
         e.preventDefault();
         console.log(answer);
         if (value === answer.join('')) {
-            this.setState({
-                result: '홈런!',
-                // 이전 tries 배열을 넣어주고, 새로운 배열을 넣어줘서 react 가 해당 배열이 변경되었는지 감지하게 해줌. (push쓰면 안됨)
-                tries: [...tries, { try: value, result: '홈런!' }],
-                
+            this.setState((prevState) => {
+                return {
+                    result: '홈런!',
+                    // 이전 tries 배열을 넣어주고, 새로운 배열을 넣어줘서 react 가 해당 배열이 변경되었는지 감지하게 해줌. (push쓰면 안됨)
+                    tries: [...prevState.tries, { try: value, result: '홈런!' }],
+                }    
             });
             alert('게임을 다시 시작합니다.');
             this.setState({
@@ -60,9 +61,11 @@ class NumberBaseball extends Component {
                     }
                 }
             }
-            this.setState({
-                tries: [...tries, { try: value, result: `${strike} 스트라이크, ${ball} 볼입니다.` }],
-                value: '',
+            this.setState((prevState) => {
+                return {
+                    tries: [...prevState.tries, { try: value, result: `${strike} 스트라이크, ${ball} 볼입니다.` }],
+                    value: '',
+                };
             });
         }
     }
@@ -81,13 +84,14 @@ class NumberBaseball extends Component {
                 <h1>{result}</h1>
                 <form onSubmit={this.onSubmitForm}>
                     <input maxLength = {4} value={value} onChange={this.onChangeInput} />
+                    <button>입력!</button>
                 </form>
                 <div>시도: {tries.length}</div>
                 <ul>
                     {tries.map((v, i) => {
                         return (
                             // key를 필수로 넘겨줘야 함
-                            <Try key={`${i + 1}차 시도 : `} tryInfo={v} />
+                            <Try key={`${i + 1}차 시도 : ${v.try}`} tryInfo={v} />
                         )
                     })}
                 </ul>
