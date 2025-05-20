@@ -34,16 +34,6 @@ const ResponseCheck = () => {
             });
         }
     };
-
-    const renderAverage = () => {
-        return result.length === 0 
-            ? null
-            :<>
-                <div>평균 시간 : {result.reduce((a, c) => a + c) / result.length}ms</div>
-                <button onClick={onReset}>리셋</button>
-            </> 
-        };
-
     
     const onReset = () => {
         setResult([]);
@@ -58,7 +48,17 @@ const ResponseCheck = () => {
         >
             {message}
         </div>
-        {renderAverage()}
+        {/* 즉시 실행 함수 */}
+        {(() => {
+            if (result.length === 0) {
+                return null;
+            } else {
+                return <>
+                    <div>평균 시간 : {result.reduce((a, c) => a + c) / result.length}ms</div>
+                    <button onClick={onReset}>리셋</button>
+                </>
+            }
+        })()}
         </>
     );
 }
