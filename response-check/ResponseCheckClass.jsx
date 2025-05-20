@@ -11,6 +11,13 @@ class ResponseCheck extends Component {
   startTime;
   endTime;
 
+  onReset = () => {
+    const result = this.state;
+    this.setState({
+      result: [],
+    })
+  }
+
   onClickScreen = () => {
     const { state, message, result } = this.state;
     if (state === 'waiting') {
@@ -33,7 +40,6 @@ class ResponseCheck extends Component {
       })
     } else if (state === 'now') { // 반응속도 체크
       this.endTime = new Date();
-      console.log(result);
       this.setState((prevState) => {
         return {
           state: 'waiting',
@@ -49,7 +55,10 @@ class ResponseCheck extends Component {
     const { result } = this.state;
     return result.length === 0 
         ? null 
-        : <div>평균 시간 : {result.reduce((a, c) => a + c) / result.length}ms</div>;
+        : <>
+          <div>평균 시간 : {result.reduce((a, c) => a + c) / result.length}ms</div>
+          <button onClick={this.onReset}>리셋</button>
+        </>
   };
 
   render() {
