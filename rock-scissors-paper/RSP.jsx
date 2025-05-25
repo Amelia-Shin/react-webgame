@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import useInterval from './useInterval';
 
 const rspCoords = {
     바위: '0',
@@ -22,15 +23,7 @@ const RSP = () => {
     const [result, setResult] = useState('');
     const [imgCoord, setImgCoord] = useState(rspCoords.바위);
     const [score, setScore] = useState(0);
-    const interval = useRef();
-
-    // useEffect 는 [] 안에 값이 바뀔 때마다 실행. 
-    useEffect(() => { // componentDidMount(첫 렌더링 시작), componentDidUpdate(렌더링 후) 역할 (1:1 대응은 아님)
-        interval.current = setInterval(changeHand, 100);
-        return () => { // componentWillUnmount(자식 컴포넌트가 제거되기 전) 역할
-            clearInterval(interval.current);
-        }
-    }, [imgCoord]);
+    const [isRunning, setIsRunning] = useState(true);
 
     const changeHand = () => {
         if (imgCoord === rspCoords.바위) {
@@ -42,8 +35,10 @@ const RSP = () => {
         }
     }
 
+    useInterval(changeHand, isRunning ? 100 : null);
+
     const onClickBtn = (choice) => () => {
-        clearInterval(interval.current);
+        setIsRunning(false);
         const myScore = scores[choice];
         const cpuScore = scores[computerChoice(imgCoord)];
         const diff = myScore - cpuScore;
@@ -58,7 +53,7 @@ const RSP = () => {
         }
         
         setTimeout(() => {
-            interval.current = setInterval(changeHand, 100);
+            setIsRunning(true);
         }, 1000);
     };
 
