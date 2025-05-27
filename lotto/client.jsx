@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+const React = require('react');
+import { createRoot } from 'react-dom/client';
 
-import Lotto from './LottoClass';
+import Lotto from './LottoClass'; 
 
-ReactDOM.render(<Lotto />, document.querySelector('#root'));
+createRoot(document.querySelector('#root')).render(<Lotto />);
