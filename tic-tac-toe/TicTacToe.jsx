@@ -86,7 +86,7 @@ const TicTacToe = () => {
         }
         if (win) { // 승리시
             dispatch({ type: SET_WINNER, winner: turn });
-            // dispatch({ type: RESET_GAME });
+            dispatch({ type: RESET_GAME });
         } else {
             let all = true; // all이 true면 무승부라는 뜻
             tableData.forEach((row) => { // 무승부 검사
