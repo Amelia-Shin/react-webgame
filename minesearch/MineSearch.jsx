@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useReducer } from 'react';
+import Form from './Form';
+import Table from './Table';
+
+const initialState = {
+  tableData: [],
+  timer: 0,
+  result: '',
+}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
 
 const MineSearch = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   return (
-    <div className="container">
-      <h1>Mine Search</h1>
-      <p>Welcome to the Mine Search application!</p>
-      <p>This is a placeholder for the mine search functionality.</p>
-      <p>More features will be added soon.</p>
-    </div>
+    <>
+      <Form />
+      <div>{state.timer}</div>
+      <Table />
+      <div>{state.result}</div>
+    </>
   );
 };
 
